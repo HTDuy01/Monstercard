@@ -1,0 +1,409 @@
+* {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  /* font-family: "Roboto", sans-serif; */
+  font-family: "Montserrat", "Helvetica", Arial, sans-serif;
+  box-sizing: border-box;
+}
+body {
+  color: #f1f1f1;
+  background-color: black;
+  background-image: url(https://cdn.monstercat.com/background-tile.webp);
+  background-repeat: repeat;
+  background-attachment: scroll;
+  overflow-x: hidden;
+  margin: 0;
+}
+h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 4.5em;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin: 37px 0;
+}
+i {
+  font-size: 20px;
+}
+.page {
+  position: relative;
+}
+
+.background-page {
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, black 50%, transparent 100%);
+}
+.background-poster {
+  width: 102%;
+  height: 102%;
+  position: absolute;
+  top: -1%;
+  left: -1%;
+  background-position: center;
+  background-size: cover;
+  z-index: -1;
+}
+
+.background-page .background-poster {
+  filter: blur(5px) brightness(38%);
+}
+
+.logo-page {
+  position: fixed;
+  top: 24px;
+  left: 242px;
+  z-index: 99;
+}
+
+.logo-page img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Content */
+.header {
+  margin: 112px 0 0 0;
+  padding: 80px 0;
+  display: flex;
+}
+
+.header__img {
+  height: 480px;
+  width: 480px;
+  position: relative;
+}
+.header__img-text {
+  font-style: italic;
+  font-weight: 400;
+  writing-mode: vertical-lr;
+  display: inline-block;
+  transform: rotate(180deg);
+  position: absolute;
+  left: -30px;
+  bottom: 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+.header__img-text span {
+  color: #50a584;
+}
+
+.header__img img {
+  width: 100%;
+}
+.header__title {
+  margin-left: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header__title-name {
+  text-transform: uppercase;
+  font-size: 4.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #f1f1f1;
+  -webkit-text-fill-color: transparent;
+}
+
+.header__title-subname {
+  text-transform: uppercase;
+  font-size: 3em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 40px;
+}
+.btn-listen {
+  background-color: #50a584;
+  color: #f1f1f1;
+  padding: 16px 37px;
+  border: solid 1px #50a584;
+  font-size: 17px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  transition: all 200ms linear;
+  margin-right: 5px;
+}
+.btn-listen i {
+  font-size: 15px;
+}
+.btn-listen:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.btn-share {
+  font-size: 17px;
+  padding: 16px 37px;
+  background-color: transparent;
+  border: solid 1px #fff;
+  font-weight: 600;
+  color: #f1f1f1;
+  transition: all 200ms linear;
+  text-decoration: none;
+}
+
+.btn-share:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.page.playing .btn-listen .icon-pause {
+  display: inline-block;
+}
+
+.page.playing .btn-listen .icon-play {
+  display: none;
+}
+
+.page .icon-pause {
+  display: none;
+}
+
+.song.active .song_icon .icon-pause {
+  display: inline-block;
+}
+.song.active .song_icon .icon-play {
+  display: none;
+}
+/* Stream */
+
+.stream_nav-list {
+  display: inline-flex;
+  list-style: none;
+  border: 1px solid;
+  border-left: none;
+  justify-content: space-between;
+}
+.stream_nav-item {
+  border-left: 2px solid #fff;
+  display: inline-block;
+  padding: 1.8em;
+  position: relative;
+}
+.stream_nav-item:hover .stream_nav-link {
+  text-decoration: none;
+  color: #f1f1f1;
+}
+.stream_nav-link {
+  text-decoration: none;
+  color: #f1f1f1;
+}
+.stream_nav-link i {
+  width: 1.5em;
+  font-weight: 400;
+  text-align: center;
+}
+
+.tooltip-text {
+  background-color: #f1f1f1;
+  color: #000;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+  position: absolute;
+  z-index: 40;
+  bottom: 85%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s linear;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Montserrat";
+  backdrop-filter: blur(3px);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.stream_nav-link:hover .tooltip-text {
+  opacity: 1;
+  visibility: visible;
+}
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #f1f1f1 transparent transparent;
+}
+
+/* TrackLists */
+.tracklist {
+  margin-top: 8rem;
+  margin-bottom: 37px;
+}
+.song {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+.song_index {
+  font-size: 18px;
+  padding: 0 5px;
+}
+.song_icon {
+  padding: 20px 30px 20px 30px;
+  cursor: pointer;
+}
+
+.song_body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  padding: 10px 50px 0 0;
+}
+.song_body .title {
+  margin: 0;
+}
+.song_body .time {
+  font-size: 18px;
+}
+
+/* Music video */
+.box_video {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.box_video iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* footer */
+.footer {
+  margin-bottom: 80px;
+}
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0em 1em;
+}
+.about_list {
+  list-style: none;
+}
+.about_list-item {
+  line-height: 1.75;
+}
+.about_list-item:hover .about_list-link {
+  text-decoration: none;
+  color: #f1f1f1;
+}
+.about_list-link {
+  text-decoration: none;
+  color: #f1f1f1;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.about_email .about_email-header {
+  text-decoration: none;
+  color: #898888;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.about_email-title {
+  font-style: italic;
+  font-size: 16px;
+  margin: 16px 0;
+  letter-spacing: 2px;
+  line-height: 1.75;
+}
+
+.signup_email {
+  border-bottom: 1px solid #3e3b3c;
+  padding-bottom: 5px;
+  font-size: 18px;
+  margin-top: 32px;
+  display: flex;
+}
+
+.input_email {
+  background-color: transparent;
+  border: none;
+  flex: 1;
+}
+
+.input_email:focus {
+  outline: none;
+}
+.btn_email {
+  background-color: transparent;
+  border-color: transparent;
+  padding: 3px 21px;
+  font-size: 15px;
+  transition: all 0.3s linear;
+}
+.btn_email:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Footer end */
+
+.footer_label {
+  display: flex;
+  justify-content: space-between;
+}
+.footer_label p {
+  color: #f1f1f1;
+  font-style: italic;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+.footer_icon-list {
+  list-style: none;
+  display: flex;
+}
+.footer_icon-item {
+  padding: 0 10px;
+}
+.footer_icon-item:hover .footer_icon-link {
+  color: unset;
+}
+.footer_icon-link {
+  text-decoration: none;
+  color: #fff;
+}
+.footer_text {
+  display: block;
+  font-size: 14px;
+  font-style: italic;
+  margin: auto;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 60%;
+  margin-top: 64px;
+}
+.footer_text p:nth-child(2) {
+  margin-top: 16px;
+}
