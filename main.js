@@ -17,66 +17,77 @@ const app = {
       singer: "Conro",
       path: "./assets/music/The Small Things - Conro.mp3",
       time: "3:35",
+      id: 0,
     },
     {
       name: "Dreaming",
       singer: "Conro",
       path: "./assets/music/Dreaming - DEAMN.mp3",
       time: "2:57",
+      id: 1,
     },
     {
       name: "Fighters",
       singer: "Conro",
       path: "./assets/music/Fighters - Sandaime J Soul Brothers.mp3",
       time: "3:46",
+      id: 2,
     },
     {
       name: "Here To Stay",
       singer: "Conro",
       path: "./assets/music/Here To Stay - Lenka.mp3",
       time: "2:44",
+      id: 3,
     },
     {
       name: "Out For The Night",
       singer: "Conro",
       path: "./assets/music/Out For The Night - 21 Savage.mp3",
       time: "3:05",
+      id: 4,
     },
     {
       name: "Overdue",
       singer: "Conro",
       path: "./assets/music/Overdue - Muse.mp3",
       time: "2:48",
+      id: 5,
     },
     {
       name: "Tattoo",
       singer: "Conro",
       path: "./assets/music/Tattoo - Jordin Sparks.mp3",
       time: "3:29",
+      id: 6,
     },
     {
       name: "Therapy",
       singer: "Conro",
       path: "./assets/music/Therapy - Conro.mp3",
       time: "3:06",
+      id: 7,
     },
     {
       name: "Waiting",
       singer: "Conro",
       path: "./assets/music/Waiting - Dash Berlin_ Emma Hewitt.mp3",
       time: "3:07",
+      id: 8,
     },
     {
       name: "Way Up",
       singer: "Conro",
       path: "./assets/music/Way Up - Jaden Smith.mp3",
       time: "3:32",
+      id: 9,
     },
     {
       name: "Without Your Love",
       singer: "Conro",
       path: "./assets/music/Here To Stay - Lenka.mp3",
       time: "3:09",
+      id: 10,
     },
   ],
   render: function () {
@@ -88,7 +99,7 @@ const app = {
                 ? "active"
                 : ""
             }" data-index=${index}>
-              <div class="song_index">${index}</div>
+              <div class="song_index">${index + 1}</div>
               
               <div class="song_icon">
                 <i class="fa-solid fa-play icon-play"></i>
@@ -127,6 +138,7 @@ const app = {
         audio.pause();
       } else {
         audio.play();
+        console.log(_this.currentSong.id === index);
       }
     };
 
@@ -143,32 +155,21 @@ const app = {
     };
 
     // Xử lý hành vi click vào nút play của tracklist
-    // tracklist.onclick = function (e) {
-    //   const songNode = e.target.closest(".song:not(.active)");
-    //   if (songNode || e.target.closest(".song_icon"))
-    //     if (songNode) {
-    //       _this.currentIndex = Number(songNode.dataset.index);
-    //       _this.loadCurrentSong();
-    //       _this.render();
-    //       audio.play();
-    //       $(".song.active").classList.remove("active");
-    //       $(".song").classList.add("active");
-    //     }
-    // };
 
     $$(".song_icon").forEach((song_icon, index) => {
+      const parentSongIcon = song_icon.parentElement;
       song_icon.onclick = function () {
-        const parentSongIcon = song_icon.parentElement;
-        const songHasActive = $(".song.active");
-
-        while (_this.isPlaying === "true") {
-          $(".song.active").classList.remove("active");
-          _this.isPlaying = true;
+        if (_this.isPlaying) {
+          audio.pause();
+          while (parentSongIcon.classList.contains("active")) {
+            $(".song.active").classList.remove("active");
+          }
+        } else {
+          parentSongIcon.classList.add("active");
+          _this.currentIndex = Number(parentSongIcon.dataset.index);
+          _this.loadCurrentSong();
+          audio.play();
         }
-        parentSongIcon.classList.add("active");
-        _this.currentIndex = Number(parentSongIcon.dataset.index);
-        _this.loadCurrentSong();
-        audio.play();
       };
     });
   },
